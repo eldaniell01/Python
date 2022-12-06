@@ -1,4 +1,5 @@
 option = input('piedra papel o tijera ')
+option = option.lower()
 computadora = 'piedra'
 if option == computadora:
     print("empate")
