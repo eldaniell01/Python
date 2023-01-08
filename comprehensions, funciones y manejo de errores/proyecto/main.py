@@ -1,9 +1,5 @@
 import utils
 
-result = utils.people()
-
-print(result)
-
 data = [
     {
         'country': 'guatemala',
@@ -23,8 +19,19 @@ data = [
     },
 ]
 
-inpt = input('ingrese el país: ')
 
-result = utils.calculate(data, inpt.lower())
+def run():
+    result = utils.people()
 
-print(result)
+    print(result)
+
+
+
+    inpt = input('ingrese el país: ')
+
+    result = utils.calculate(data, inpt.lower())
+
+    print(result)
+    
+if __name__ == '__main__':
+    run()
