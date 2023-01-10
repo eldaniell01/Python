@@ -1,37 +1,17 @@
 import utils
-
-data = [
-    {
-        'country': 'guatemala',
-        'people': 4000
-    },
-    {
-        'country': 'mexico',
-        'people': 8000
-    },
-    {
-        'country': 'españa',
-        'people': 6000
-    },
-    {
-        'country': 'el salvador',
-        'people': 3000
-    },
-]
-
+import readcsv
+import grafica
 
 def run():
-    result = utils.people()
-
-    print(result)
-
-
-
+    data = readcsv.read_csv('comprehensions, funciones y manejo de errores/proyecto/world_population.csv')
     inpt = input('ingrese el país: ')
+    result = utils.calculate(data, inpt)
+    if len(result)>0:
+        country = result[0]
+        key, values = utils.people(country)
+        grafica.graficaBarra(key, values)
 
-    result = utils.calculate(data, inpt.lower())
 
-    print(result)
     
 if __name__ == '__main__':
     run()
