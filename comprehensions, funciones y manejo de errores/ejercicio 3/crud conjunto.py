@@ -16,12 +16,12 @@ paises.update({'arg', 'ecu'})
 print(paises)
 
 #remove
-
-paises.remove('gua')
+print('2')
+paises.remove('guas')
 print(paises)
 
 #discard
-
+print('1')
 paises.discard('hola')
 print(paises)
 
