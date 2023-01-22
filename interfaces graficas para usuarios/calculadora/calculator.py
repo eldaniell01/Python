@@ -3,7 +3,8 @@ from tkinter import *
 root = Tk()
 root.title("Calculadora simple")
 root.configure(background='#22BABB')
-e = Entry(root, width=50)
+
+e = Entry(root, width=50, font='Arial')
 e.grid(row=0, column=0, columnspan=3, padx=20, pady=10)
 
 def agregar(num):
@@ -20,18 +21,27 @@ def agregar(num):
 count = 0
 def sumar():
     global num1
+    global operador 
     n = e.get()
     num1 = float(n)
     e.delete(0,END)
+    operador = '+'
     
-        
-    #resultado(r)
-    
+def restar():
+    global num1
+    global operador 
+    n = e.get()
+    num1 = float(n)
+    e.delete(0,END)
+    operador = '-'
+
 def resultado():
     num2 = e.get()
     e.delete(0, END)
-    e.insert(0, num1+float(num2))
-    
+    if operador=='+':
+        e.insert(0, num1+float(num2))
+    elif operador=='-':
+        e.insert(0,num1-float(num2))
     
 def clear():
     e.delete(0,END)
@@ -57,10 +67,12 @@ num8 = Button(root, text="8", padx=40, pady=10, bg='#FA7F08', command=lambda: ag
 num8.grid(row=4, column=0)
 num9 = Button(root, text="9", padx=40, pady=10, bg='#FA7F08', command=lambda: agregar(9))
 num9.grid(row=4, column=1)
-num10 = Button(root, text="+", width=20, padx=40, pady=10, bg='#FA7F08', command=sumar)
-num10.grid(row=5, column=0, columnspan=2)
-num11 = Button(root, text="=", height=3, padx=40, pady=10, bg='#FA7F08', command=resultado)
-num11.grid(row=3, column=2, rowspan=2)
-num12 = Button(root, text="C", height=1, padx=40, pady=10, bg='#FA7F08', command=clear)
-num12.grid(row=5, column=2)
+num10 = Button(root, text="+", padx=40, pady=10, bg='#FA7F08', command=sumar)
+num10.grid(row=5, column=0)
+num11 = Button(root, text="-", padx=40, pady=10, bg='#FA7F08', command=restar)
+num11.grid(row=5, column=1)
+num12 = Button(root, text="=", height=3, padx=40, pady=10, bg='#FA7F08', command=resultado)
+num12.grid(row=3, column=2, rowspan=2)
+num13 = Button(root, text="C", height=1, padx=40, pady=10, bg='#FA7F08', command=clear)
+num13.grid(row=5, column=2)
 root.mainloop()
