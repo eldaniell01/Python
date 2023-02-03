@@ -24,7 +24,101 @@ def eliminar():
 
     #cerrar conexion
     conexion.close()
-    pass
+    
+def save():
+    #crear conexion
+    conexion = sqlite3.connect('direcciones.db')
+    key = codigo2.get()
+    #cursor
+    c = conexion.cursor()
+    c.execute("""UPDATE direccion SET
+              nombre = :nombre,
+              apellido = :apellido,
+              direccion = :direccion,
+              codigo = :codigo
+              
+              WHERE oid= :oid""",
+              {
+                  'nombre': nombre_act.get(),
+                  'apellido': apellido_act.get(),
+                  'direccion': direccion_act.get(),
+                  'codigo': codigo_act.get(),
+                  'oid': key
+              }
+              )
+    
+    
+    
+    #commit cambios
+    conexion.commit()
+
+    #cerrar conexion
+    conexion.close()
+    
+    nombre_act.delete(0, END)
+    apellido_act.delete(0, END)
+    direccion_act.delete(0, END)
+    codigo_act.delete(0, END)
+    codigo2_act.delete(0, END)
+
+def actualizar():
+    act = Tk()
+    act.title('base de datos')
+    act.geometry("800x600")
+    
+    #crear conexion
+    conexion = sqlite3.connect('direcciones.db')
+
+    #cursor
+    c = conexion.cursor()
+    
+    key = codigo2.get()
+    
+    c.execute("SELECT * FROM direccion WHERE oid="+key)
+    datos = c.fetchall()
+    
+    global nombre_act
+    global apellido_act
+    global direccion_act
+    global codigo_act
+    global codigo2_act
+    
+    
+    nombre_act = Entry(act, width=30)
+    nombre_act.grid(row=0, column=0, padx=20)
+    apellido_act = Entry(act, width=30)
+    apellido_act.grid(row=1, column=0, padx=20)
+    direccion_act = Entry(act, width=30)
+    direccion_act.grid(row=2, column=0, padx=20)
+    codigo_act = Entry(act, width=30)
+    codigo_act.grid(row=3, column=0, padx=20)
+
+    codigo2_act = Entry(act, width=30)
+    codigo2_act.grid(row=4, column=0, padx=20)
+
+    nom_act = Label(act, text="nombre")
+    nom_act.grid(row=0, column=1)
+    ape_act = Label(act, text="apellido")
+    ape_act.grid(row=1, column=1)
+
+    dire_act = Label(act, text="direccion")
+    dire_act.grid(row=2, column=1)
+
+    cod_act = Label(act, text="codigo")
+    cod_act.grid(row=3, column=1)
+    cod2_act = Label(act, text="ID")
+    cod2_act.grid(row=4, column=1)
+    
+    for lista in datos:
+        nombre_act.insert(0, lista[0])
+        apellido_act.insert(0, lista[1])
+        direccion_act.insert(0, lista[2])
+        codigo_act.insert(0, lista[3])
+        codigo2_act.insert(0, key)
+ 
+    
+    btn4_act = Button(act, text="actualizar", width=25, command=save)
+    btn4_act.grid(row=11, columnspan=2, padx=20)
 
 
 def enviar():
@@ -53,6 +147,8 @@ def enviar():
     apellido.delete(0, END)
     direccion.delete(0, END)
     codigo.delete(0, END)
+
+
     
 def consultar():
     #crear conexion
@@ -111,6 +207,7 @@ btn2.grid(row=6, columnspan=2, padx=20)
 btn3 = Button(root, text="eliminar", width=25, command=eliminar)
 btn3.grid(row=10, columnspan=2, padx=20)
 
-
+btn4 = Button(root, text="actualizar", width=25, command=actualizar)
+btn4.grid(row=11, columnspan=2, padx=20)
 
 root.mainloop()

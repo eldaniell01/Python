@@ -13,8 +13,12 @@ conexion = sqlite3.connect('direcciones.db')
 c = conexion.cursor()
 #crear tabla
 c.execute("""
-          SELECT *FROM direccion
-        
+          CREATE TABLE direccion(
+              nombre text,
+              apellido text,
+              direccion text,
+              codigo integer
+          )
           """)
 
 #commit cambios
