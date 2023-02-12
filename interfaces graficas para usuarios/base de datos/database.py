@@ -54,14 +54,11 @@ def save():
 
     #cerrar conexion
     conexion.close()
+    act.destroy()
     
-    nombre_act.delete(0, END)
-    apellido_act.delete(0, END)
-    direccion_act.delete(0, END)
-    codigo_act.delete(0, END)
-    codigo2_act.delete(0, END)
 
 def actualizar():
+    global act
     act = Tk()
     act.title('base de datos')
     act.geometry("800x600")
