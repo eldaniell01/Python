@@ -179,6 +179,10 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+virt/
+nuevo/
+web/
+fastapi/
 
 # Spyder project settings
 .spyderproject
